@@ -1,6 +1,8 @@
 package FIS;
 
 import DBConnect.*;
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.sql.*;
 import java.util.Scanner;
 
@@ -9,8 +11,24 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Statement stml = null;
 
-        DBConnect.dbConnect DB = new dbConnect();//Object from DB connect
-        DB.Connect2DB();//Connect to DB
+        DBConnect.dbConnect DB = new dbConnect();
+        stml = DB.Conn2DB();
+        String query = "Select * from userdetails";
+        String insert = "Insert into userdetails values(234,'sura','sura@gmail.com','testing',9)";
+        try {
+            stml.executeLargeUpdate(insert);
+            ResultSet rs = stml.executeQuery(query);
+            while (rs.next()){
+                int userID = rs.getInt("UserID");
+                String uName = rs.getString("UserName");
+                String PW = rs.getString("Password");
+                System.out.println("UserID: "+userID+" "+"Username: "+uName+" "+"Password: "+PW);
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
 
         System.out.print("Input Lecturer Name:");
         academic UPL = new academic();
