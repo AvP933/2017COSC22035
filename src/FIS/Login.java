@@ -1,5 +1,6 @@
+package FIS;
+
 import DBConnect.dbConnect;
-import sun.security.util.Password;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,7 @@ public class Login {
     private JPasswordField pwField;
     private JButton exitButton;
     private JButton loginButton;
-
+    private student user;
     public static JFrame loginFR = new JFrame("Login");
 
     public Login() {
@@ -51,10 +52,14 @@ public class Login {
         try{
             String query = "Select * userdetaills where UserName ='"+frUsername+"'";
             stml = dbcon.Conn2DB();
-            ResultSet Rs = stml.executeQuery(query);
-            Rs.first();
+            ResultSet RS = stml.executeQuery(query);
+            RS.first();
             inUsername = frUsername;
-            inPW = Rs.getString("Password");
+            user.name=frUsername;
+            inPW = RS.getString("Password");
+            user.PW = inPW;
+            user.email = RS.getString("Password");
+            user.NIC = RS.getString("NIC");
 
         } catch (SQLException e) {
             e.printStackTrace();

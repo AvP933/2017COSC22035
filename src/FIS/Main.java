@@ -69,7 +69,7 @@ public class Main {
         UPL.outSal();
         DB.Connect2DB();
         stml = DB.Conn2DB();
-        String sql = "SELECT * FROM `userDetails`";
+        String sql = "SELECT * FROM `FIS.userDetails`";
         try{
             if (UPL.totalCredits()>10) throw new courseException();
         }catch (courseException exp)
